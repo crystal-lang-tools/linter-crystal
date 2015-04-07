@@ -20,7 +20,7 @@ class LinterCrystal extends Linter
   errorStream: 'stderr'
 
   # A regex pattern used to extract information from the executable's output.
-  regex: ':(?<line>\\d+): (?<message>.*)'
+  regex: ':(?<line>\d+): (?<message>.*)'
 
   constructor: (editor) ->
     super(editor)
