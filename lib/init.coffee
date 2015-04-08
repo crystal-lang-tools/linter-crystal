@@ -1,5 +1,6 @@
 module.exports =
   configDefaults:
+    crystalExecutablePath: null
     crystalCommandName: 'crystal'
 
   activate: ->
