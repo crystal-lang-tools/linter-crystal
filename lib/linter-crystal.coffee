@@ -8,7 +8,7 @@ class LinterCrystal extends Linter
 
   # A string, list, tuple or callable that returns a string, list or tuple,
   # containing the command line (with arguments) used to lint.
-  cmd: 'crystal'
+  cmd: 'crystal build'
 
   executablePath: null
 
