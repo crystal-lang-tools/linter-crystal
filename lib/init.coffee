@@ -3,7 +3,7 @@ module.exports =
     # Should the lint only lint in the actual file path (this fixes problems
     #   with relative requirements)
     cyrstalUseActualFilePath: true
-    crystalCommandName: 'crystal build --no-build'
+    crystalCommand: 'crystal build --no-build'
 
   activate: ->
     if atom.inDevMode()

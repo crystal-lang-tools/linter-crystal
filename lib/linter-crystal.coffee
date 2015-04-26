@@ -31,7 +31,7 @@ class LinterCrystal extends Linter
       @enabled = true
 
   lintFile: (filePath, callback) ->
-    @cmd = atom.config.get 'linter-crystal.crystalCommandName'
+    @cmd = atom.config.get 'linter-crystal.crystalCommand'
     if @pathLint
       if @enabled
         origin_file = path.basename do @editor.getPath
