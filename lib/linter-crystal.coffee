@@ -23,7 +23,7 @@ class LinterCrystal extends Linter
   constructor: (editor)->
     super(editor)
 
-    atom.config.observe 'linter-crystal.crystalExecutablePath', =>
+    @pathListen = atom.config.observe 'linter-crystal.crystalExecutablePath', =>
       @executablePath = atom.config.get 'linter-crystal.crystalExecutablePath'
 
   lintFile: (filePath, callback) ->
@@ -32,6 +32,6 @@ class LinterCrystal extends Linter
     super(filePath, callback)
 
   destroy: ->
-    atom.config.unobserve 'linter-crystal.crystalExecutablePath'
+    @pathListen.dispose()
 
 module.exports = LinterCrystal
