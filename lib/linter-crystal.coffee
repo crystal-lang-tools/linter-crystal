@@ -9,7 +9,6 @@ class LinterCrystal extends Linter
   # A string, list, tuple or callable that returns a string, list or tuple,
   # containing the command line (with arguments) used to lint.
   cmd: 'crystal build --no-build'
-  executablePath: null
   errorStream: 'stdout'
   linterName: 'crystal'
   # Is the linter linting in the actual file's path.
@@ -28,8 +27,6 @@ class LinterCrystal extends Linter
     @pathLintListen =
       atom.config.observe 'linter-crystal.cyrstalUseActualFilePath', =>
         @pathLint = atom.config.get 'linter-crystal.cyrstalUseActualFilePath'
-    @pathListen = atom.config.observe 'linter-crystal.crystalExecutablePath', =>
-      @executablePath = atom.config.get 'linter-crystal.crystalExecutablePath'
     if @pathLint
       @enabled = true
 
@@ -44,6 +41,5 @@ class LinterCrystal extends Linter
 
   destroy: ->
     @pathLintListen.dispose()
-    @pathListen.dispose()
 
 module.exports = LinterCrystal

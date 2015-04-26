@@ -1,6 +1,5 @@
 module.exports =
   configDefaults:
-    crystalExecutablePath: null
     # Should the lint only lint in the actual file path (this fixes problems
     #   with relative requirements)
     cyrstalUseActualFilePath: true
