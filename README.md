@@ -16,7 +16,9 @@ $ apm install linter-crystal
 ```
 
 ## Settings
-There are currently no settings to configure.
+By changing the Crystal Command config option you may change what the linter runs when your file is linted.
+
+As well, your file is only linted when first opened and when saved, you may change this option in the settings as well so that your file is linted whenever you make an edit. (Warning: Changing this setting will cause your file to be linted in a temporary directory and mess with relative requirements.)
 
 ## Contributing
 If you would like to contribute enhancements or fixes, please do the following:
