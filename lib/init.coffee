@@ -3,7 +3,7 @@ module.exports =
     liveLinting: false
     buildArtifacts: false
     colorOutput: false
-    crystalCommand: 'crystal build'
+    command: 'crystal build'
 
 
   activate: ->

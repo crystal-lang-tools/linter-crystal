@@ -21,8 +21,8 @@ class LinterCrystal extends Linter
 
   constructor: (@editor)->
     super(@editor)
-    @cmdListen = atom.config.observe 'linter-crystal.crystalCommand', =>
-      @cmd = atom.config.get 'linter-crystal.crystalCommand'
+    @cmdListen = atom.config.observe 'linter-crystal.command', =>
+      @cmd = atom.config.get 'linter-crystal.command'
     @lintLiveListen = atom.config.observe 'linter-crystal.liveLinting', =>
       @lintLive = atom.config.get 'linter-crystal.liveLinting'
     @colorListen = atom.config.observe 'linter-crystal.colorOutput', =>

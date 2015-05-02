@@ -16,9 +16,11 @@ $ apm install linter-crystal
 ```
 
 ## Settings
-By changing the Crystal Command config option you may change what the linter runs when your file is linted.
-
-As well, your file is only linted when first opened and when saved, you may change this option in the settings as well so that your file is linted whenever you make an edit. (Warning: Changing this setting will cause your file to be linted in a temporary directory and mess with relative requirements.)
+Using the Settings for the Package you may change the state of any of these properties to change how files are linted:
+- `Build Artifacts` when disabled passes the `--no-build` option to the compiler to prevent it from outputing anything.
+- `Color Output` when disabled passes the `--no-color` option to the compiler to prevent it from coloring and bolding the console outputs. This option only exists in Crystal version >= 0.7
+- `Command` allows you to set the command Linter runs when your file is linted.
+- `Live Linting` when enabled lints the current state of the current file in a temporary directory, this breaks relative requirements, but this mode is useful if writing a script. When disabled the file is linted in the directory it's saved in at save and opening, keeping in tact relative requirements.
 
 ## Contributing
 If you would like to contribute enhancements or fixes, please do the following:
