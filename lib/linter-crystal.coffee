@@ -31,7 +31,6 @@ class LinterCrystal extends Linter
       @buildOutput = atom.config.get 'linter-crystal.buildArtifacts'
 
   lintFile: (filePath, callback) ->
-    @cmd = atom.config.get 'linter-crystal.crystalCommand'
     {command, args} = @getCmdAndArgs(filePath)
     unless @colorBuild
       @cmd = "#{@cmd} --no-color"
