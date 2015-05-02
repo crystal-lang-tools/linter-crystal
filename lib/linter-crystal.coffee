@@ -8,38 +8,46 @@ class LinterCrystal extends Linter
   @syntax: ['source.crystal']
   # A string, list, tuple or callable that returns a string, list or tuple,
   # containing the command line (with arguments) used to lint.
-  cmd: 'crystal build --no-build'
+  cmd: ''
   errorStream: 'stdout'
   linterName: 'crystal'
   # Is the linter linting in the actual file's path.
   # This fixes isses with relative requirements.
-  @pathLint: true
-  # If the linter is being allowed to run or not.
-  # This allows us to only lint when the file is run opened and when saved.
-  @enabled: false
-
+  @lintLive: false
+  @colorBuild: false
+  @buildOutput: false
   # A regex pattern used to extract information from the executable's output.
-  regex:
-    '.+:(?<line>\\d+): (\\[1m)?(?<message>.+)(\\[0m)?'
+  regex: '.+:(?<line>\\d+): (?<message>.+)'
 
   constructor: (@editor)->
     super(@editor)
-    @pathLintListen =
-      atom.config.observe 'linter-crystal.cyrstalUseActualFilePath', =>
-        @pathLint = atom.config.get 'linter-crystal.cyrstalUseActualFilePath'
-    if @pathLint
-      @enabled = true
+    @cmdListen = atom.config.observe 'linter-crystal.crystalCommand', =>
+      @cmd = atom.config.get 'linter-crystal.crystalCommand'
+    @lintLiveListen = atom.config.observe 'linter-crystal.liveLinting', =>
+      @lintLive = atom.config.get 'linter-crystal.liveLinting'
+    @colorListen = atom.config.observe 'linter-crystal.colorOutput', =>
+      @colorBuild = atom.config.get 'linter-crystal.colorOutput'
+    @buildOutputListen = atom.config.observe 'linter-crystal.buildArtifacts', =>
+      @buildOutput = atom.config.get 'linter-crystal.buildArtifacts'
 
   lintFile: (filePath, callback) ->
     @cmd = atom.config.get 'linter-crystal.crystalCommand'
-    if @pathLint
-      if @enabled
-        origin_file = path.basename do @editor.getPath
-        super(origin_file, callback)
-    else
+    {command, args} = @getCmdAndArgs(filePath)
+    unless @colorBuild
+      @cmd = "#{@cmd} --no-color"
+    unless @buildOutput
+      @cmd = "#{@cmd} --no-build"
+    if @lintLive
       super(filePath, callback)
+    else
+      super((path.basename do @editor.getPath), callback)
+    if atom.inDevMode()
+      console.log "linter-crystal running command: #{@cmd}"
 
   destroy: ->
-    @pathLintListen.dispose()
+    @cmdListen.dispose()
+    @lintLiveListen.dispose()
+    @colorListen.dipose()
+    @buildOutputListen.dispose()
 
 module.exports = LinterCrystal
