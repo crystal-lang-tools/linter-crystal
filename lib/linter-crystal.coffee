@@ -2,7 +2,7 @@ linterPath = atom.packages.getLoadedPackage("linter").path
 Linter = require "#{linterPath}/lib/linter"
 path = require 'path'
 
-class LinterCrystal extends Linter
+module.exports = class LinterCrystal extends Linter
   # The syntax that the linter handles. May be a string or
   # list/tuple of strings. Names should be all lowercase.
   @syntax: ['source.crystal']
@@ -44,5 +44,3 @@ class LinterCrystal extends Linter
 
   destroy: ->
     @listen.dispose()
-
-module.exports = LinterCrystal

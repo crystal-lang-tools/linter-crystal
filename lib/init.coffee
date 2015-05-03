@@ -1,9 +1,17 @@
 module.exports =
-  configDefaults:
-    liveLinting: false
-    buildArtifacts: false
-    colorOutput: false
-    command: 'crystal build'
+  config:
+    liveLinting:
+      type: 'boolean'
+      default: false
+    buildArtifacts:
+      type: 'boolean'
+      default: false
+    colorOutput:
+      type: 'boolean'
+      default: false
+    command:
+      type: 'string'
+      default: 'crystal build'
 
 
   activate: ->
