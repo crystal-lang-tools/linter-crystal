@@ -21,16 +21,16 @@ class LinterCrystal extends Linter
 
   constructor: (@editor)->
     super(@editor)
-    @lintLiveListen = atom.config.observe 'linter-crystal.liveLinting', =>
-      @lintLive = atom.config.get 'linter-crystal.liveLinting'
-    @colorListen = atom.config.observe 'linter-crystal.colorOutput', =>
-      @colorBuild = atom.config.get 'linter-crystal.colorOutput'
-    @buildOutputListen = atom.config.observe 'linter-crystal.buildArtifacts', =>
-      @buildOutput = atom.config.get 'linter-crystal.buildArtifacts'
+    @listen =
+      atom.config.observe 'linter-crystal.liveLinting', (value) =>
+        @lintLive = value
+    atom.config.observe 'linter-crystal.colorOutput', (value) =>
+      @colorBuild = value
+    atom.config.observe 'linter-crystal.buildArtifacts', (value) =>
+      @buildOutput = value
 
   lintFile: (filePath, callback) ->
     @cmd = atom.config.get 'linter-crystal.command'
-    {command, args} = @getCmdAndArgs(filePath)
     unless @colorBuild
       @cmd = "#{@cmd} --no-color"
     unless @buildOutput
@@ -43,8 +43,6 @@ class LinterCrystal extends Linter
       console.log "linter-crystal running command: #{@cmd}"
 
   destroy: ->
-    @lintLiveListen.dispose()
-    @colorListen.dipose()
-    @buildOutputListen.dispose()
+    @listen.dispose()
 
 module.exports = LinterCrystal
