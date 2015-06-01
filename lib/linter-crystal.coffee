@@ -31,7 +31,7 @@ module.exports = LinterCrystal =
     Path = require 'path'
     XRegExp = require('xregexp').XRegExp
 
-    regex = XRegExp('.+:(?<line>\\d+): (?<message>.+)')
+    regex = XRegExp('Error in (?<file>.+):(?<line>\\d+): (?<message>.+)')
 
     return new Promise (Resolve) ->
       FilePath = TextEditor.getPath()
@@ -40,21 +40,29 @@ module.exports = LinterCrystal =
       @cmd = atom.config.get 'linter-crystal.command'
       @cmd = "#{@cmd} --no-build" unless atom.config.get 'linter-crystal.buildOutput'
       @cmd = "#{@cmd} --no-color" unless atom.config.get 'linter-crystal.colorOutput'
-      Process = CP.exec("#{@cmd} #{TextEditor.getTitle()}",
+      Process = CP.exec("#{@cmd} #{Path.basename(FilePath)}",
         {cwd: Path.dirname(FilePath)})
       Process.stdout.on 'data', (data) -> Data.push(data.toString())
       Process.on 'close', ->
         Content = []
         for line in Data
           Content.push XRegExp.exec(line, regex)
-          console.log line if atom.inDevMode()
+          console.log line# if atom.inDevMode()
         ToReturn = []
         Content.forEach (regex) ->
           if regex
-            ToReturn.push(
-              Type: 'Error',
-              Message: regex.message,
-              File: FilePath
-              Position: [[regex.line, 0], [regex.line, TextBuffer.lineLengthForRow(regex.line)]]
-            )
+            if Path.basename(FilePath) == Path.normalize(regex.file)
+              ToReturn.push(
+                Type: 'Error',
+                Message: regex.message,
+                File: FilePath
+                Position: [[regex.line, 0], [regex.line, TextBuffer.lineLengthForRow(regex.line)]]
+              )
+            else
+              ToReturn.push(
+                Type: 'Error',
+                Message: regex.message,
+                File: Path.normalize(regex.file)
+                Position: [[regex.line, 0], [regex.line, 0]]
+              )
         Resolve(ToReturn)
