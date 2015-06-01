@@ -34,7 +34,7 @@ module.exports = LinterCrystal =
       scopes: ['source.crystal']
       scope: 'file'
       lint: @lint
-      lintOnFly: true
+      lintOnFly: false
     }
 
   lint: (TextEditor, TextBuffer) ->
