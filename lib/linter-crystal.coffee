@@ -1,5 +1,3 @@
-{CompositeDisposable} = require 'atom'
-
 module.exports = LinterCrystal =
   config:
     buildArtifacts:
@@ -16,15 +14,6 @@ module.exports = LinterCrystal =
     console.log 'activate linter-crystal' if atom.inDevMode()
     unless atom.packages.getLoadedPackages 'linter-plus'
       @showError '[linter-crystal] `linter-plus` package not found, please install it'
-
-  constructor: ->
-    @disposables = new CompositeDisposable
-    @disposables.add atom.config.observe 'linter-crystal.command', (value) =>
-      @cmd = value
-    @disposables.add atom.config.observe 'linter-crystal.colorOutput', (value) =>
-      @colorBuild = value
-    @disposables.add atom.config.observe 'linter-crystal.buildArtifacts', (value) =>
-      @buildOutput = value
 
   showError: (message = '') ->
     atom.notifications.addError message
@@ -69,6 +58,3 @@ module.exports = LinterCrystal =
               Position: [[regex.line, 0], [regex.line, TextBuffer.lineLengthForRow(regex.line)]]
             )
         Resolve(ToReturn)
-
-  destroy: ->
-    @disposables.dispose()
