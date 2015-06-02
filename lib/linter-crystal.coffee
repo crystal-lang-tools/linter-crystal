@@ -53,16 +53,16 @@ module.exports = LinterCrystal =
           if regex
             if Path.basename(FilePath) == Path.normalize(regex.file)
               ToReturn.push(
-                Type: 'Error',
-                Message: regex.message,
-                File: FilePath
-                Position: [[regex.line, 0], [regex.line, TextBuffer.lineLengthForRow(regex.line)]]
+                type: 'error',
+                message: regex.message,
+                file: FilePath
+                position: [[regex.line, 0], [regex.line, TextBuffer.lineLengthForRow(regex.line)]]
               )
             else
               ToReturn.push(
-                Type: 'Error',
-                Message: regex.message,
-                File: Path.normalize(regex.file)
-                Position: [[regex.line, 0], [regex.line, 0]]
+                type: 'error',
+                message: regex.message,
+                file: Path.normalize(regex.file)
+                position: [[regex.line, 0], [regex.line, 0]]
               )
         Resolve(ToReturn)
