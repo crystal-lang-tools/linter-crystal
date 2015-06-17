@@ -11,22 +11,20 @@ module.exports = LinterCrystal =
       default: 'crystal build'
 
   activate: ->
-    console.log 'activate linter-crystal' if atom.inDevMode()
     unless atom.packages.getLoadedPackages 'linter-plus'
       @showError '[linter-crystal] `linter-plus` package not found, please install it'
 
   showError: (message = '') ->
     atom.notifications.addError message
 
-  provideLinter: ->
-    {
-      scopes: ['source.crystal']
-      scope: 'file'
-      lint: @lint
-      lintOnFly: false
-    }
+  provideLinter: -> {
+    grammarScopes: ['source.crystal']
+    scope: 'file'
+    lint: @lint
+    lintOnFly: false
+  }
 
-  lint: (TextEditor, TextBuffer) ->
+  lint: (TextEditor) ->
     CP = require 'child_process'
     Path = require 'path'
     XRegExp = require('xregexp').XRegExp
@@ -40,29 +38,25 @@ module.exports = LinterCrystal =
       @cmd = atom.config.get 'linter-crystal.command'
       @cmd = "#{@cmd} --no-build" unless atom.config.get 'linter-crystal.buildOutput'
       @cmd = "#{@cmd} --no-color" unless atom.config.get 'linter-crystal.colorOutput'
-      Process = CP.exec("#{@cmd} #{Path.basename(FilePath)}",
-        {cwd: Path.dirname(FilePath)})
+      command = "#{@cmd} #{Path.basename(FilePath)}"
+      Process = CP.exec(command, {cwd: Path.dirname(FilePath)})
+      console.log "linter-crystal command: #{command}" if atom.inDevMode()
       Process.stdout.on 'data', (data) -> Data.push(data.toString())
       Process.on 'close', ->
         Content = []
         for line in Data
           Content.push XRegExp.exec(line, regex)
-          console.log line# if atom.inDevMode()
+          console.log "linter-crystal command output: #{line}" if atom.inDevMode()
         ToReturn = []
         Content.forEach (regex) ->
           if regex
-            if Path.basename(FilePath) == Path.normalize(regex.file)
-              ToReturn.push(
-                type: 'error',
-                message: regex.message,
-                file: FilePath
-                position: [[regex.line, 0], [regex.line, TextBuffer.lineLengthForRow(regex.line)]]
-              )
-            else
-              ToReturn.push(
-                type: 'error',
-                message: regex.message,
-                file: Path.normalize(regex.file)
-                position: [[regex.line, 0], [regex.line, 0]]
-              )
+            ToReturn.push(
+              type: 'error',
+              text: regex.message,
+              filePath: Path.join(Path.dirname(FilePath), regex.file).normalize()
+              range: [
+                [regex.line - 1, 0],
+                [regex.line - 1, 0]
+              ]
+            )
         Resolve(ToReturn)
