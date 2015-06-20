@@ -1,3 +1,6 @@
+child_process = require 'child_process'
+path = require 'path'
+
 module.exports = LinterCrystal =
   config:
     buildArtifacts:
@@ -12,10 +15,7 @@ module.exports = LinterCrystal =
 
   activate: ->
     unless atom.packages.getLoadedPackages 'linter-plus'
-      @showError '[linter-crystal] `linter-plus` package not found, please install it'
-
-  showError: (message = '') ->
-    atom.notifications.addError message
+      atom.notifications.addError message '[linter-crystal] `linter-plus` package not found, please install it'
 
   provideLinter: -> {
     grammarScopes: ['source.crystal']
@@ -25,38 +25,32 @@ module.exports = LinterCrystal =
   }
 
   lint: (TextEditor) ->
-    CP = require 'child_process'
-    Path = require 'path'
-    XRegExp = require('xregexp').XRegExp
-
-    regex = XRegExp('Error in (?<file>.+):(?<line>\\d+): (?<message>.+)')
-
+    regex = /.+ in (.+):(\d+): (.+)/
     return new Promise (Resolve) ->
-      FilePath = TextEditor.getPath()
-      return unless FilePath # Files that have not be saved
-      Data = []
-      @cmd = atom.config.get 'linter-crystal.command'
-      @cmd = "#{@cmd} --no-build" unless atom.config.get 'linter-crystal.buildOutput'
-      @cmd = "#{@cmd} --no-color" unless atom.config.get 'linter-crystal.colorOutput'
-      command = "#{@cmd} #{Path.basename(FilePath)}"
-      Process = CP.exec(command, {cwd: Path.dirname(FilePath)})
-      console.log "linter-crystal command: #{command}" if atom.inDevMode()
-      Process.stdout.on 'data', (data) -> Data.push(data.toString())
-      Process.on 'close', ->
-        Content = []
-        for line in Data
-          Content.push XRegExp.exec(line, regex)
-          console.log "linter-crystal command output: #{line}" if atom.inDevMode()
-        ToReturn = []
-        Content.forEach (regex) ->
-          if regex
-            ToReturn.push(
-              type: 'error',
-              text: regex.message,
-              filePath: Path.join(Path.dirname(FilePath), regex.file).normalize()
-              range: [
-                [regex.line - 1, 0],
-                [regex.line - 1, 0]
-              ]
-            )
-        Resolve(ToReturn)
+      if TextEditor.getPath()
+        file = path.basename TextEditor.getPath()
+        cwd = path.dirname TextEditor.getPath()
+        data = []
+        command = atom.config.get 'linter-crystal.command'
+        command = "#{command} --no-build" unless atom.config.get 'linter-crystal.buildOutput'
+        command = "#{command} --no-color" unless atom.config.get 'linter-crystal.colorOutput'
+        command = "#{command} #{file}"
+        console.log "linter-crystal command: #{command}" if atom.inDevMode()
+        process = child_process.exec command, {cwd: cwd}
+        process.stdout.on 'data', (d) -> data.push d.toString()
+        process.on 'close', ->
+          toReturn = []
+          for line in data
+            console.log "linter-crystal command output: #{line}" if atom.inDevMode()
+            if line.match regex
+              match = line.match(regex)[1..3]
+              file = match[0]
+              line = match[1]
+              message = match[2]
+              toReturn.push(
+                type: 'error',
+                text: message,
+                filePath: path.join(cwd, file).normalize()
+                range: [[line - 1, 0], [line - 1, 0]]
+              )
+          Resolve(toReturn)
