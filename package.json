@@ -1,8 +1,6 @@
 {
   "name": "linter-crystal",
-  "linter-package": true,
-  "activationCommands": [],
-  "main": "./lib/init",
+  "main": "./lib/linter-crystal",
   "version": "1.2.4",
   "description": "Lint Crystal using the Crystal compiler",
   "repository": "https://github.com/AtomLinter/linter-crystal",
@@ -10,5 +8,11 @@
   "engines": {
     "atom": ">0.50.0"
   },
-  "dependencies": {}
+  "providedServices": {
+    "linter": {
+      "versions": {
+        "1.0.0": "provideLinter"
+      }
+    }
+  }
 }
