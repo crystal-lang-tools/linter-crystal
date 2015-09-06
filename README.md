@@ -5,13 +5,8 @@ This linter plugin for [Linter](https://github.com/AtomLinter/Linter) provides a
 
 As well, you must have the Crystal compiler installed on this system for this to work, to learn how to install this please visit the [Crystal Language Documentation](http://crystal-lang.org/docs/installation/README.html).
 
-## Installation
-Linter package must be installed in order to use this plugin. If Linter is not installed, please follow the instructions [here](https://github.com/AtomLinter/Linter).
+This package will ensure all dependencies are installed at activation.
 
-### Plugin installation
-```
-$ apm install linter-crystal
-```
 
 ## Contributing
 If you would like to contribute enhancements or fixes, please do the following:
