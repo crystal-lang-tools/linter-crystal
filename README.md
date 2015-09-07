@@ -3,7 +3,7 @@ linter-crystal
 
 This linter plugin for [Linter](https://github.com/AtomLinter/Linter) provides an interface to Crystal's builtin syntax analysis. It will be used with files that have the `Crystal` syntax.
 
-As well, you must have the Crystal compiler installed on this system for this to work, to learn how to install this please visit the [Crystal Language Documentation](http://crystal-lang.org/docs/installation/README.html).
+As well, you must have the Crystal compiler installed on this system for this to work, to learn how to install this please visit the [Crystal Language Documentation](http://crystal-lang.org/docs/installation/index.html).
 
 This package will ensure all dependencies are installed at activation.
 
