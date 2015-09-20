@@ -6,6 +6,8 @@ notifications:
     on_failure: change
 
 before_install:
-  - brew install manastech/crystal/crystal-lang
+  - brew tap manastech/crystal
+  - brew update
+  - brew install crystal-lang
 
 script: 'curl -s https://raw.githubusercontent.com/atom/ci/master/build-package.sh | sh'
