@@ -1,7 +1,7 @@
 {
   "name": "linter-crystal",
   "main": "./lib/linter-crystal",
-  "version": "1.2.4",
+  "version": "3.2.1",
   "description": "Lint Crystal using the Crystal compiler",
   "repository": "https://github.com/AtomLinter/linter-crystal",
   "license": "MIT",
@@ -9,55 +9,18 @@
     "atom": ">0.50.0"
   },
   "providedServices": {
-    "linter-plus": {
+    "linter": {
       "versions": {
-        "0.1.0": "provideLinter"
+        "1.0.0": "provideLinter"
       }
     }
   },
   "dependencies": {
-    "xregexp": "2.0.0"
+    "atom-linter": "^1.0.3",
+    "atom-package-deps": "^2.1.3"
   },
-  "coffeelintConfig": {
-    "arrow_spacing": {
-      "name": "arrow_spacing",
-      "level": "error"
-    },
-    "ensure_comprehensions": {
-      "name": "ensure_comprehensions",
-      "level": "error"
-    },
-    "max_line_length": {
-      "name": "max_line_length",
-      "value": 120,
-      "level": "error",
-      "limitComments": true
-    },
-    "indentation": {
-      "name": "indentation",
-      "value": 2,
-      "level": "error"
-    },
-    "no_empty_param_list": {
-      "name": "no_empty_param_list",
-      "level": "error"
-    },
-    "cyclomatic_complexity": {
-      "name": "cyclomatic_complexity",
-      "value": 22,
-      "level": "error"
-    },
-    "no_unnecessary_fat_arrows": {
-      "name": "no_unnecessary_fat_arrows",
-      "level": "error"
-    },
-    "space_operators": {
-      "name": "space_operators",
-      "level": "error"
-    },
-    "spacing_after_comma": {
-      "name": "spacing_after_comma",
-      "level": "error"
-    }
-  }
+  "package-deps": [
+    "language-crystal-actual",
+    "linter"
+  ]
 }
