@@ -9,6 +9,16 @@ describe('The Crystal provider for AtomLinter', () => {
     })
   })
 
+  it('does not find any errors in "without_errors.cr"', () => {
+    waitsForPromise(() => {
+      return atom.workspace.open(__dirname + '/files/without_errors.cr').then(editor => {
+        return lint(editor).then(messages => {
+          expect(messages.length).toEqual(0)
+        })
+      })
+    })
+  })
+
   it('finds an error in "incorrect_method_type.cr"', () => {
     waitsForPromise(() => {
       return atom.workspace.open(__dirname + '/files/incorrect_method_type.cr').then(editor => {
