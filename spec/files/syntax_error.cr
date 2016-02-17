@@ -1,1 +1,1 @@
-x: String = 42
+x : String = 42

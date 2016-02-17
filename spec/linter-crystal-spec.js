@@ -49,7 +49,7 @@ describe('The Crystal provider for AtomLinter', () => {
         return lint(editor).then(messages => {
           expect(messages.length).toEqual(1)
           expect(messages[0].type).toEqual("error")
-          expect(messages[0].text).toEqual("unexpected token: :")
+          expect(messages[0].text).toEqual("unexpected token: =")
         })
       })
     })
