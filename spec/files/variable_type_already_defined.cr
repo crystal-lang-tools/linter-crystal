@@ -1,3 +1,3 @@
-x :: String
+x : String
 
 x = 1
