@@ -6,7 +6,6 @@ notifications:
     on_failure: change
 
 before_install:
-  - brew tap manastech/crystal
   - brew update
   - brew install crystal-lang
 
