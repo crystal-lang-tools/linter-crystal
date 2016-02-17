@@ -1,4 +1,4 @@
-def accepts_int(int: Int)
+def accepts_int(int : Int)
   puts int
 end
 
