@@ -15,12 +15,42 @@
       }
     }
   },
+  "package-deps": [
+    "language-crystal-actual",
+    "linter"
+  ],
+  "scripts": {
+    "test": "apm test",
+    "lint": "eslint ."
+  },
   "dependencies": {
     "atom-linter": "^6.0.0",
     "atom-package-deps": "^4.0.1"
   },
-  "package-deps": [
-    "language-crystal-actual",
-    "linter"
-  ]
+  "devDependencies": {
+    "eslint": "^2.13.1",
+    "eslint-config-airbnb-base": "^3.0.1",
+    "eslint-plugin-import": "^1.9.2"
+  },
+  "eslintConfig": {
+    "rules": {
+      "global-require": 0,
+      "import/no-unresolved": [
+        2,
+        {
+          "ignore": [
+            "atom"
+          ]
+        }
+      ]
+    },
+    "extends": "airbnb-base",
+    "globals": {
+      "atom": true
+    },
+    "env": {
+      "es6": true,
+      "node": true
+    }
+  }
 }
