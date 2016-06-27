@@ -1,5 +1,8 @@
 linter-crystal
 ==============
+[![Atom Package Manager Version](https://img.shields.io/apm/v/linter-crystal.svg?maxAge=2592000?style=flat-square)](https://atom.io/packages/linter-crystal)
+[![Atom Package Manager Downloads](https://img.shields.io/apm/dm/linter-crystal.svg?maxAge=2592000?style=flat-square)](https://atom.io/packages/linter-crystal)
+[![Travis](https://img.shields.io/travis/atom-crystal/linter-crystal/master.svg?maxAge=2592000?style=flat-square)](https://travis-ci.org/atom-crystal/linter-crystal)
 
 A bridge between the [Crystal](http://crystal-lang.org/) compiler and the [Atom](https://atom.io/) text editor, showing compilation errors alongside your code.
 
