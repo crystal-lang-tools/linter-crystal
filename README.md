@@ -1,12 +1,13 @@
 linter-crystal
-=========================
+==============
 
-This linter plugin for [Linter](https://github.com/AtomLinter/Linter) provides an interface to Crystal's builtin syntax analysis. It will be used with files that have the `Crystal` syntax.
+A bridge between the [Crystal](http://crystal-lang.org/) compiler and the [Atom](https://atom.io/) text editor, showing compilation errors alongside your code.
 
-As well, you must have the Crystal compiler installed on this system for this to work, to learn how to install this please visit the [Crystal Language Documentation](http://crystal-lang.org/docs/installation/index.html).
+## Installation
 
-This package will ensure all dependencies are installed at activation.
+Install from the command line or the Atom install settings page.
 
+As well please have a [Crystal grammar](https://atom.io/packages/language-crystal-actual), and a [Linter consumer](http://atomlinter.github.io/#consumers) installed.
 
 ## Contributing
 If you would like to contribute enhancements or fixes, please do the following:
@@ -16,11 +17,3 @@ If you would like to contribute enhancements or fixes, please do the following:
 1. Commit and push the topic branch.
 1. Make a pull request.
 1. welcome to the club
-
-Please note that modifications should follow these coding guidelines:
-
-- Indent is 2 spaces.
-- Code should pass coffeelint linter.
-- Vertical whitespace helps readability, don’t be afraid to use it.
-
-Thank you for helping out!
