@@ -43,18 +43,6 @@ describe('The Crystal provider for AtomLinter', () => {
     })
   })
 
-  it('finds an error in "syntax_error.cr"', () => {
-    waitsForPromise(() => {
-      return atom.workspace.open(__dirname + '/files/syntax_error.cr').then(editor => {
-        return lint(editor).then(messages => {
-          expect(messages.length).toEqual(1)
-          expect(messages[0].type).toEqual("error")
-          expect(messages[0].text).toEqual("unexpected token: =")
-        })
-      })
-    })
-  })
-
   it('finds an error in "variable_type_already_defined.cr"', () => {
     waitsForPromise(() => {
       return atom.workspace.open(__dirname + '/files/variable_type_already_defined.cr').then(editor => {
