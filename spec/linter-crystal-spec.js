@@ -24,7 +24,7 @@ describe('The Crystal provider for AtomLinter', () => {
       return atom.workspace.open(__dirname + '/files/incorrect_method_type.cr').then(editor => {
         return lint(editor).then(messages => {
           expect(messages.length).toEqual(1)
-          expect(messages[0].type).toEqual("error")
+          expect(messages[0].type).toEqual("Error")
           expect(messages[0].text).toEqual("no overload matches 'accepts_int' with type String\nOverloads are:\n - accepts_int(int : Int)")
         })
       })
@@ -36,7 +36,7 @@ describe('The Crystal provider for AtomLinter', () => {
       return atom.workspace.open(__dirname + '/files/relative_requirement.cr').then(editor => {
         return lint(editor).then(messages => {
           expect(messages.length).toEqual(1)
-          expect(messages[0].type).toEqual("error")
+          expect(messages[0].type).toEqual("Error")
           expect(messages[0].text).toEqual("declaring the type of a local variable is not yet supported")
         })
       })
@@ -48,7 +48,7 @@ describe('The Crystal provider for AtomLinter', () => {
       return atom.workspace.open(__dirname + '/files/variable_type_already_defined.cr').then(editor => {
         return lint(editor).then(messages => {
           expect(messages.length).toEqual(1)
-          expect(messages[0].type).toEqual("error")
+          expect(messages[0].type).toEqual("Error")
           expect(messages[0].text).toEqual("declaring the type of a local variable is not yet supported")
         })
       })
