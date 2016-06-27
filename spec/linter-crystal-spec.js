@@ -56,6 +56,12 @@ describe('The Crystal provider for AtomLinter', () => {
   })
 
   it('finds no issue in a file dependant on a shard (#19)', () => {
+    process.chdir(__dirname + '/files/shards_test')
+    const spawn = require('child_process').spawn
+    const shards = spawn('shards', ['install'])
+    shards.stdout.on('data', (data) => {
+      console.log(`stdout: ${data}`)
+    })
     waitsForPromise(() => {
       return atom.workspace.open(__dirname + '/files/shards_test/main.cr').then(editor => {
         return lint(editor).then(messages => {
