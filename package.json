@@ -15,11 +15,31 @@
       }
     }
   },
-  "dependencies": {
-    "atom-linter": "^4.7.0"
-  },
-  "package-deps": [
-    "language-crystal-actual",
-    "linter"
-  ]
+  "dependencies": {},
+  "configSchema": {
+    "compilerExecPath": {
+      "title": "Compiler Executable Path",
+      "description": "The path (with excutable) to be run by the IDE in the background. By default the IDE will use the compiler in your path.",
+      "type": "string",
+      "default": "crystal"
+    },
+    "buildArtifacts": {
+      "title": "Output Build Artifacts",
+      "description": "When true the compiler will create build artifacts when run by the linter.",
+      "type": "boolean",
+      "default": false
+    },
+    "colorOutput": {
+      "title": "Compiler passing Color Output",
+      "description": "When false the compiler will not pass ASCII color characters to the linter when run by the linter.",
+      "type": "boolean",
+      "default": false
+    },
+    "command": {
+      "title": "Compiler Command",
+      "description": "The command passed to the commpiler during linting.",
+      "type": "string",
+      "default": "compile"
+    }
+  }
 }
