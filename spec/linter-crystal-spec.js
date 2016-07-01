@@ -72,6 +72,6 @@ function _setupShardsTest() {
   const spawn = require('child_process').spawn
   const shards = spawn('shards', ['install'])
   shards.stdout.on('data', (data) => {
-    // console.log(`shards install: ${data}`)
+    console.log(`shards install: ${data}`)
   })
 }
