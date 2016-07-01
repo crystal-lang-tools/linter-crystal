@@ -1,7 +1,7 @@
 {
   "name": "linter-crystal",
   "main": "./lib/linter-crystal",
-  "version": "3.4.0",
+  "version": "3.5.0",
   "description": "Lint Crystal using the Crystal compiler",
   "repository": "https://github.com/atom-crystal/linter-crystal",
   "license": "MIT",
