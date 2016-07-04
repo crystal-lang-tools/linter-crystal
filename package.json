@@ -39,7 +39,7 @@
       "title": "Compiler Command",
       "description": "The command passed to the commpiler during linting.",
       "type": "string",
-      "default": "compile"
+      "default": "build"
     }
   }
 }
