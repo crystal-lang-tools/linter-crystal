@@ -1,3 +1,7 @@
+***This package has been deprecated in favor of [`crystal`](https://atom.io/packages/crystal)***
+
+---
+
 linter-crystal
 ==============
 [![Atom Package Manager Version](https://img.shields.io/apm/v/linter-crystal.svg?maxAge=2592000?style=flat-square)](https://atom.io/packages/linter-crystal)
