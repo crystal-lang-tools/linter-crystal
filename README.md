@@ -1,4 +1,4 @@
-***This package has been deprecated in favor of [`crystal`](https://atom.io/packages/crystal)***
+***This package has been deprecated in favor of [`ide-crystal`](https://atom.io/packages/ide-crystal)***
 
 ---
 
